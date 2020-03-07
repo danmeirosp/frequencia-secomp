@@ -1,5 +1,8 @@
 package org.example;
 
+import org.example.models.Aluno;
+import org.example.persistence.AlunoPersistence;
+
 import java.util.Scanner;
 
 /**
@@ -13,16 +16,23 @@ public class App
         int menu = -1;
 
         do {
-            System.out.println("1 cadastra, 2 vê a lista, 0 sai");
+            AlunoPersistence alunoPersistence = new AlunoPersistence();
             Scanner scanner = new Scanner(System.in);
+
+            System.out.println("1 Cadastra aluno, \n2 Exibe a lista, \n0 Encerra o aplicativo");
             menu = scanner.nextInt();
 
             switch (menu) {
                 case 1:
-                    cadastraAluno();
+                    Aluno aluno = new Aluno();
+                    System.out.println("Nome do aluno: \n");
+                    aluno.setNome(scanner.nextLine());
+                    System.out.println("RA do aluno: \n");
+                    aluno.setRa(scanner.nextLine());
+                    alunoPersistence.adicionaAluno(aluno);
                     break;
                 case 2:
-                    exibeLista();
+                    alunoPersistence.exibeLista();
                     break;
                 case 0:
                     break;
@@ -31,7 +41,7 @@ public class App
                     menu = -1;
                     break;
             }
-        } while (menu != 0)
+        } while (menu != 0);
         System.out.println();
     }
 }
